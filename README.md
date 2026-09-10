@@ -1,4 +1,4 @@
-# 📦 MyCodeRepository
+# 📦 Undergraduate Studies
 
 > 个人学习代码仓库，涵盖 **ACM 竞赛刷题**、**模式识别课程实验** 与 **计算机网络课程设计** 三大模块。
 
@@ -7,7 +7,7 @@
 ## 📁 目录结构
 
 ```
-MyCodeRepository/
+Undergraduate Studies/
 ├── ACM/                          # ACM 竞赛练习代码
 │   ├── PTA/                      # PTA 平台题目（C++）
 │   ├── acwing/                   # AcWing 平台
@@ -15,19 +15,20 @@ MyCodeRepository/
 │   │   └── daily_problem/        # 每日一题
 │   ├── atcoder/                  # AtCoder 平台（328 / 345 / 347 / 455 / 456 / 457 场）
 │   ├── codeforces/               # Codeforces 平台
-│   │   ├── div2/                 # Div.2 场次（1946 场等）
+│   │   ├── div2/                 # Div.2 场次
 │   │   ├── div3/
 │   │   ├── daily/
 │   │   └── EDU/
-│   ├── Algorithms/               # 算法专题练习
-│   │   ├── DFS/                  # 深度优先搜索
-│   │   └── IntervalMerging/      # 区间合并（贪心）
-│   └── NetworkCourseDesign/      # 计算机网络课程设计
-│       ├── client.cpp            # 下位机客户端（C++，Winsock）
-│       ├── server.py             # 上位机服务端（Python，v2）
-│       └── v1_legacy/            # 早期 Python 版本
-│           ├── sever.py          # 早期服务端
-│           └── user.py           # 早期客户端
+│   └── Algorithms/               # 算法专题练习
+│       ├── DFS/                  # 深度优先搜索
+│       └── IntervalMerging/      # 区间合并（贪心）
+├── NetworkCourseDesign/          # 计算机网络课程设计
+│   ├── v2/                       # 当前版本（C++ 下位机 + Python 上位机）
+│   │   ├── client.cpp            # 下位机客户端（C++，Winsock）
+│   │   └── server.py             # 上位机服务端（Python）
+│   └── v1/                       # 早期 Python 版本
+│       ├── sever.py              # 早期服务端
+│       └── user.py               # 早期客户端
 └── Pattern Recognition/          # 模式识别课程作业（Python）
     ├── code/                     # 各章节实验代码
     ├── page/
@@ -92,8 +93,8 @@ pip install numpy opencv-python matplotlib sympy scikit-learn
 
 | 版本 | 文件 | 语言 | 端口 | 说明 |
 |------|------|------|------|------|
-| v2（当前）| `client.cpp` + `server.py` | C++ / Python | 12345 | C++ 下位机 + Python 上位机 |
-| v1（早期）| `v1_legacy/sever.py` + `v1_legacy/user.py` | Python / Python | 50000 | 纯 Python C/S 实现 |
+| v2（当前）| `v2/client.cpp` + `v2/server.py` | C++ / Python | 12345 | C++ 下位机 + Python 上位机 |
+| v1（早期）| `v1/sever.py` + `v1/user.py` | Python / Python | 50000 | 纯 Python C/S 实现 |
 
 ### 通信协议（v2）
 
