@@ -115,7 +115,6 @@ pip install numpy opencv-python matplotlib sympy scikit-learn
 | 编译器 | GCC / MinGW（C++17）|
 | Python | 3.x |
 | IDE | VSCode / CLion / PyCharm |
-| 构建工具 | Code::Blocks（部分题目）|
 
 ---
 
