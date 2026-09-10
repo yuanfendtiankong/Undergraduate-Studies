@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1710576742 source:d:\code\codeblocks\222\main.cpp
-	<iostream>
-	<vector>
-	<map>
-	<algorithm>
-
