@@ -1,0 +1,73 @@
+﻿# ===========================
+# Compiled Binary Files
+# ===========================
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+
+# ===========================
+# Build Directories
+# ===========================
+bin/
+obj/
+build/
+dist/
+
+# ===========================
+# IDE & Editor Files
+# ===========================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# Dev-C++
+*.dev
+
+# ===========================
+# Competitive Programming
+# ===========================
+# CPH (Competitive Programming Helper) test cache
+.cph/
+
+# ===========================
+# Python
+# ===========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+
+# ===========================
+# OS Generated Files
+# ===========================
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# ===========================
+# Logs and Temp Files
+# ===========================
+*.log
+*.tmp
+*.bak
+*.swp
