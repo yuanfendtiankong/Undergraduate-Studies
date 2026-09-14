@@ -1,6 +1,6 @@
 # 📦 Undergraduate Studies
 
-> 个人学习代码仓库，涵盖 **ACM 竞赛刷题**、**模式识别课程实验** 与 **计算机网络课程设计** 三大模块。
+> 个人学习代码仓库，涵盖 **竞赛刷题**、**模式识别课程实验** 与 **计算机网络课程设计** 三大模块。
 
 ---
 
@@ -11,14 +11,8 @@ Undergraduate Studies/
 ├── ACM/                          # ACM 竞赛练习代码
 │   ├── PTA/                      # PTA 平台题目（C++）
 │   ├── acwing/                   # AcWing 平台
-│   │   ├── Weekly141/            # 第 141 场周赛
-│   │   └── daily_problem/        # 每日一题
-│   ├── atcoder/                  # AtCoder 平台（328 / 345 / 347 / 455 / 456 / 457 场）
+│   ├── atcoder/                  # AtCoder 平台
 │   ├── codeforces/               # Codeforces 平台
-│   │   ├── div2/                 # Div.2 场次
-│   │   ├── div3/
-│   │   ├── daily/
-│   │   └── EDU/
 │   └── Algorithms/               # 算法专题练习
 │       ├── DFS/                  # 深度优先搜索
 │       └── IntervalMerging/      # 区间合并（贪心）

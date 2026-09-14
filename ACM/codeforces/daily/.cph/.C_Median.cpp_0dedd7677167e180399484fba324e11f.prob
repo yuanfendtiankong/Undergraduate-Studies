@@ -1,1 +1,0 @@
-{"name":"Local: C_Median","url":"d:\\code\\codeforces\\daily\\C_Median.cpp","tests":[{"id":1711679861522,"input":"3 4\n1 2 3","output":"4"},{"id":1711679867727,"input":"3 10\n10 20 30","output":"1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\code\\codeforces\\daily\\C_Median.cpp","group":"local","local":true}
