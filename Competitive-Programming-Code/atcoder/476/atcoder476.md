@@ -1,5 +1,3 @@
-# AtCoder Beginner Contest 476
-
 ### **A - Appender**
 
 *水题，题意说的是如果我们的单词以e结尾则在后面+r，否则则在最后面+er*
@@ -58,7 +56,7 @@ int main()
 
 ### **C - Third Largest Number**
 
-题意：给我们一个长度为N的整数序列\(A=(A_1,A_2,\ldots,A_N)\)，让我们去挑选出在序列\(A=(A_1,A_2,\ldots,A_k)\) 取出第三大的整数
+题意：给我们一个长度为N的整数序列A = (A1, A2, ..., AN)，让我们去挑选出在序列A = (A1, A2, ..., Ak)取出第三大的整数
 
 本质：维护一个长度为三的数组，这个数组始终满足单调递减即可。
 但是为什么这去做是对的呢？
@@ -67,27 +65,27 @@ int main()
 
 设当前数组为：
 
-\[
+$$
 B=(b_1,b_2,b_3)
-\]
+$$
 
 并且始终满足：
 
-\[
+$$
 b_1\ge b_2\ge b_3
-\]
+$$
 
-其中 \(b_1,b_2,b_3\) 表示目前遇到的三个最大数。
+其中 (b1,b2,b3) 表示目前遇到的三个最大数。
 
-当加入新数字 \(x\) 时，只需要将 \(x\) 插入到正确的位置，并删除最小的数。
+当加入新数字 (x) 时，只需要将 (x) 插入到正确的位置，并删除最小的数。
 
 为什么这样做是正确的？
 
 因为原来没有被保存的数字都不大于 \(b_3\)。加入一个新数字后，新的前三大数字只可能来自：
 
-\[
+$$
 b_1,\ b_2,\ b_3,\ x
-\]
+$$
 
 所以只要在这四个数字中保留最大的三个，就能得到新的前三大数字。
 
@@ -234,3 +232,263 @@ int main()
 }
 ```
 
+### **E - Min-Max Swap**
+
+题意：给我们一个长度为 `N` 的排列 `P`，以及 `M` 个区间 `[L_i,R_i]`。每次在当前排列的这个区间里，找到最小值和最大值，然后交换它们所在的位置。按顺序做完 `M` 次操作后，输出最终的排列。
+
+### 1. 我是怎么想到线段树的？
+
+如果每次都从头扫描 `[L_i,R_i]`，找最小值、最大值和它们的位置，一次最坏要 `O(N)`，`M` 次最坏就是 `O(NM)`。`N` 和 `M` 都可以到 `2×10^5`，这个做法太慢了。
+
+关键是每次操作之后，排列会变化，下一次查询必须基于更新后的排列。因此我需要同时支持：
+
+- 查询一个区间里的最小值、最大值，以及它们的位置；
+- 交换后修改两个位置的值；
+- 后续查询能立即看到修改后的值。
+
+这就是“**区间查询 + 单点修改**”的场景。差分适合处理预先给定的区间加减，不能直接维护每次交换之后的区间最值；这里用线段树更合适。
+
+### 2. 线段树的本质
+
+线段树把数组下标递归地分成左右两段，每个节点负责一个区间，并保存这段区间的统计信息。
+
+这题的统计信息是：
+
+```text
+区间最小值及其位置
+区间最大值及其位置
+```
+
+如果一个区间被分成左右两段，而且能用左右两段的信息快速算出整段的信息，就可以把查询拆成若干个已经存好答案的小区间，再把它们合并。单点修改时，只需要沿着根节点到对应叶子的路径更新信息。
+
+所以线段树的关键是先想清楚两件事：
+
+1. 一个节点要保存什么信息？
+2. 两个子区间的信息怎么合并？
+
+### 3. `Node`：一个区间保存的信息
+
+只保存最小值和最大值还不够，因为操作要交换的是它们**所在的位置**。所以每个节点保存两个数对：
+
+```text
+mn = {最小值, 最小值的位置}
+mx = {最大值, 最大值的位置}
+```
+
+```cpp
+struct Node
+{
+    pair<int, int> mn;
+    pair<int, int> mx;
+};
+```
+
+本题给的是排列，数值互不相同。`pair` 按“先比较值、再比较位置”的顺序比较，因此 `min` 能选出最小值对应的数对，`max` 能选出最大值对应的数对。
+
+### 4. `merge` 和 `pushup`：合并左右区间
+
+`mergeNode` 接收左右子区间的信息，返回合并后的信息：
+
+```text
+合并后的 mn = 左右两边中更小的 mn
+合并后的 mx = 左右两边中更大的 mx
+```
+
+`pushup(u)` 则把合并结果写回当前节点 `u`。可以记成：
+
+```text
+mergeNode：算出父区间的信息
+pushup：把算出的信息保存到 tr[u]
+```
+
+```cpp
+Node mergeNode(const Node& left, const Node& right)
+{
+    Node res;
+    res.mn = min(left.mn, right.mn);
+    res.mx = max(left.mx, right.mx);
+    return res;
+}
+
+void pushup(int u)
+{
+    tr[u] = mergeNode(tr[u * 2], tr[u * 2 + 1]);
+}
+```
+
+### 5. `build`：根据初始排列建树
+
+当 `l == r` 时，当前区间只有一个位置，所以它的最小值和最大值都是 `p[l]`。否则先建左右子树，再用 `pushup` 合并出当前节点的信息。
+
+```text
+build(u, l, r)
+├── l == r：初始化叶子节点
+└── 否则：建左右子树，再 pushup(u)
+```
+
+### 6. `query`：查询 `[L,R]` 的最值和位置
+
+这里要区分两组下标：
+
+```text
+[l,r]：当前线段树节点负责的区间
+[L,R]：这次要查询的区间
+```
+
+查询时分三种情况：
+
+1. 当前节点的区间完全落在查询范围内：直接返回 `tr[u]`；
+2. 查询范围完全在左边或右边：只递归对应的子树；
+3. 查询范围跨过 `mid`：左右都查，再用 `mergeNode` 合并。
+
+完整覆盖时直接返回已经保存的信息，不必继续访问区间中的每个位置，这正是区间查询能快起来的原因。
+
+### 7. `update`：单点修改
+
+`update` 的参数含义是：
+
+```text
+u       当前线段树节点编号
+[l,r]   当前节点负责的区间
+pos     要修改的数组下标
+value   这个位置的新值
+```
+
+递归找到 `pos` 对应的叶子并更新它，然后沿途调用 `pushup`，重新计算祖先节点的区间最值。
+
+### 8. 主流程
+
+每次操作按这个顺序做：
+
+1. `build(1, 1, n)`，根据初始排列建树；
+2. `query(1, 1, n, L, R)`，得到当前区间的最小值位置和最大值位置；
+3. 在原数组 `p` 中交换这两个位置；
+4. 对这两个位置分别调用 `update`，让线段树同步到最新排列；
+5. 所有操作完成后，输出 `p`。
+
+注意：只交换数组 `p` 不够，线段树里还存着旧信息；所以交换后必须更新这两个位置。
+
+### 9. 复杂度
+
+- 建树：`O(N)`
+- 每次区间查询：`O(log N)`
+- 每次操作有两次单点更新：`O(log N)`
+- 总时间复杂度：`O(N + M log N)`
+- 空间复杂度：`O(N)`（线段树数组开约 `4N` 个节点）
+
+### 完整代码
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int N = 2e5 + 10;
+
+struct Node
+{
+    pair<int, int> mn;
+    pair<int, int> mx;
+};
+
+Node tr[N * 4];
+int p[N];
+
+Node mergeNode(const Node& left, const Node& right)
+{
+    Node res;
+    res.mn = min(left.mn, right.mn);
+    res.mx = max(left.mx, right.mx);
+    return res;
+}
+
+void pushup(int u)
+{
+    tr[u] = mergeNode(tr[u * 2], tr[u * 2 + 1]);
+}
+
+void build(int u, int l, int r)
+{
+    if (l == r)
+    {
+        tr[u].mn = {p[l], l};
+        tr[u].mx = {p[l], l};
+        return;
+    }
+
+    int mid = (l + r) / 2;
+    build(u * 2, l, mid);
+    build(u * 2 + 1, mid + 1, r);
+    pushup(u);
+}
+
+Node query(int u, int l, int r, int L, int R)
+{
+    if (L <= l && r <= R)
+        return tr[u];
+
+    int mid = (l + r) / 2;
+
+    if (R <= mid)
+        return query(u * 2, l, mid, L, R);
+
+    if (L > mid)
+        return query(u * 2 + 1, mid + 1, r, L, R);
+
+    Node left = query(u * 2, l, mid, L, R);
+    Node right = query(u * 2 + 1, mid + 1, r, L, R);
+    return mergeNode(left, right);
+}
+
+void update(int u, int l, int r, int pos, int value)
+{
+    if (l == r)
+    {
+        tr[u].mn = {value, pos};
+        tr[u].mx = {value, pos};
+        return;
+    }
+
+    int mid = (l + r) / 2;
+    if (pos <= mid)
+        update(u * 2, l, mid, pos, value);
+    else
+        update(u * 2 + 1, mid + 1, r, pos, value);
+
+    pushup(u);
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin >> n >> m;
+
+    for (int i = 1; i <= n; i++)
+        cin >> p[i];
+
+    build(1, 1, n);
+
+    for (int i = 1; i <= m; i++)
+    {
+        int L, R;
+        cin >> L >> R;
+
+        Node res = query(1, 1, n, L, R);
+        int mnp = res.mn.second;
+        int mxp = res.mx.second;
+
+        swap(p[mnp], p[mxp]);
+
+        update(1, 1, n, mnp, p[mnp]);
+        update(1, 1, n, mxp, p[mxp]);
+    }
+
+    for (int i = 1; i <= n; i++)
+        cout << p[i] << (i == n ? '\n' : ' ');
+
+    return 0;
+}
+```
