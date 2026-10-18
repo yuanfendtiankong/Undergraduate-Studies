@@ -39,7 +39,7 @@ Undergraduate Studies/
 |------|------|------|------|
 | [PTA](https://pintia.cn/) | `ACM/PTA/` | C++ | 国内 OJ，含 PAT / 天梯赛题库 |
 | [AcWing](https://www.acwing.com/) | `ACM/acwing/` | C++ | 周赛 & 每日一题 |
-| [AtCoder](https://atcoder.jp/) | `ACM/atcoder/` | C++ | 日本 OJ，328 ~ 457 场 |
+| [AtCoder](https://atcoder.jp/) | `ACM/atcoder/` | C++ | 日本 OJ，328 ~ 478 |
 | [Codeforces](https://codeforces.com/) | `ACM/codeforces/` | C++ | Div.2 / Div.3 / EDU / 每日题 |
 
 ### 算法专题
