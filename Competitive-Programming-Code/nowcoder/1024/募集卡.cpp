@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int n, m;
+    cin >> n >> m;
+
+    cout << (((n + 1) / 4) * ((m + 1) / 4) / 8) << endl;
+
+    return 0;
+}

@@ -8,13 +8,16 @@
 
 ```
 Undergraduate Studies/
-├── ACM/                          # ACM 竞赛练习代码
+├── Competitive-Programming-Code/ # 竞赛刷题代码
 │   ├── PTA/                      # PTA 平台题目（C++）
 │   ├── acwing/                   # AcWing 平台
-│   ├── atcoder/                  # AtCoder 平台
+│   ├── atcoder/                  # AtCoder 平台（ABC 328 / 345 / 347 / 455 ~ 457 / 475 ~ 480）
 │   ├── codeforces/               # Codeforces 平台
+│   ├── leetcode/                 # LeetCode 本地刷题（附本地测试模板）
 │   └── Algorithms/               # 算法专题练习
+│       ├── Binary_Search/        # 二分查找
 │       ├── DFS/                  # 深度优先搜索
+│       ├── Graph/                # 图论（Tarjan 强连通分量）
 │       └── IntervalMerging/      # 区间合并（贪心）
 ├── NetworkCourseDesign/          # 计算机网络课程设计
 │   ├── v2/                       # 当前版本（C++ 下位机 + Python 上位机）
@@ -37,17 +40,35 @@ Undergraduate Studies/
 
 | 平台 | 目录 | 语言 | 说明 |
 |------|------|------|------|
-| [PTA](https://pintia.cn/) | `ACM/PTA/` | C++ | 国内 OJ，含 PAT / 天梯赛题库 |
-| [AcWing](https://www.acwing.com/) | `ACM/acwing/` | C++ | 周赛 & 每日一题 |
-| [AtCoder](https://atcoder.jp/) | `ACM/atcoder/` | C++ | 日本 OJ，328 ~ 478 |
-| [Codeforces](https://codeforces.com/) | `ACM/codeforces/` | C++ | Div.2 / Div.3 / EDU / 每日题 |
+| [PTA](https://pintia.cn/) | `Competitive-Programming-Code/PTA/` | C++ | 国内 OJ，含 PAT / 天梯赛题库 |
+| [AcWing](https://www.acwing.com/) | `Competitive-Programming-Code/acwing/` | C++ | 周赛 & 每日一题 |
+| [AtCoder](https://atcoder.jp/) | `Competitive-Programming-Code/atcoder/` | C++ | 日本 OJ，ABC 328 ~ 480，475 场起附题解 |
+| [Codeforces](https://codeforces.com/) | `Competitive-Programming-Code/codeforces/` | C++ | Div.2 / Div.3 / EDU / 每日题 |
+| [LeetCode](https://leetcode.com/) | `Competitive-Programming-Code/leetcode/` | C++ | 本地刷题模板（`run.ps1` + 测试入口）|
+
+### AtCoder 近期场次
+
+ABC 475 ~ 480 每场目录下均附有题解文档（`atcoderXXX.md`），记录题意、思路推导与 AC 代码：
+
+| 场次 | 题解 | 亮点题目 |
+|------|------|---------|
+| ABC 475 | `475/atcoder475.md` | C - Walk the Line（O(N²) → 二分 → 双指针 O(N)）、D - Alphametic Prime（全排列枚举 + 素数判定）|
+| ABC 476 | `476/atcoder476.md` | D - Automat（枚举饮料数量 + 局部贪心）、E - Min-Max Swap（线段树维护区间最值与位置）|
+| ABC 477 | `477/atcoder477.md` | C - Range Search Query（子串出现位置预处理 + 二分）、D - Masking Tape（倒序处理 / 染色版本号懒更新）|
+| ABC 478 | `478/atcoder478.md` | C - Sort Subarray（定位与目标有序数组不一致的区间）、D - Range Set Insertion Query（区间合并）|
+| ABC 479 | `479/atcoder479.md` | C - Bento Packing（DFS / 位运算枚举子集）、D - Back and Forth Distance（前缀 / 后缀最小值）|
+| ABC 480 | `480/atcoder480.md` | C - Self-Stopping Shower（区间合并 + 空档贪心）、D - Concatenation of Prefixes（前缀和 + 二分）|
+
+> 更早的场次（328 / 345 / 347 / 455 ~ 457）仅保留代码，暂无题解文档。
 
 ### 算法专题
 
 | 专题 | 目录 | 包含内容 |
 |------|------|---------|
-| 深度优先搜索 | `ACM/Algorithms/DFS/` | 全排列、指数型枚举、组合 DFS |
-| 区间合并 | `ACM/Algorithms/IntervalMerging/` | 贪心区间处理 |
+| 二分查找 | `Competitive-Programming-Code/Algorithms/Binary_Search/` | 整数二分模板 |
+| 深度优先搜索 | `Competitive-Programming-Code/Algorithms/DFS/` | 全排列、指数型枚举、组合 DFS |
+| 图论 | `Competitive-Programming-Code/Algorithms/Graph/` | Tarjan 强连通分量（SCC）|
+| 区间合并 | `Competitive-Programming-Code/Algorithms/IntervalMerging/` | 贪心区间处理、区间合并与剩余区间 |
 
 ---
 
